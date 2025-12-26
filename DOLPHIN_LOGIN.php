@@ -45,6 +45,7 @@
 </html>
 
 <?php
+session_start();
 
 if ($_SERVER['REQUEST_METHOD']==='POST'){
     $username=htmlspecialchars(trim($_POST['Username']?? ''));
@@ -62,13 +63,14 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
         $stmt= $pdo->prepare('SELECT * FROM Users WHERE username =:username ');
         $stmt->bindParam(":username",$username,PDO::PARAM_STR);
         $stmt->execute();
-        $users=$stmt->fetch();
+        $user=$stmt->fetch();
 
 
         
-    if ($users && password_verify($password,$users['password'])){
+    if ($user && password_verify($password,$user['password'])){
       
-        echo"LOGIN";
+        $_SESSION['user_id'] = $user['id'];
+        header("Location: dashboard.php");
         exit();
    
         
@@ -85,3 +87,4 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 }
 
 ?>
+
