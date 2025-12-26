@@ -1,27 +1,31 @@
 <?php
 
 session_start();
-require 'config.php';
+require 'php\config.php';
 
-if (!isset($_SESSION['user_id'])){
-	header('Location: DOLPHIN_LOGIN.php');
-	exit;
-}
+// if (!isset($_SESSION['user_id'])){
+// 	header('Location: DOLPHIN_LOGIN.php');
+// 	exit;
+// }
 
-if($_SESSION['role'] !== 'Admin') {
-	echo "<p class='error-message'>Access Denied. Only Admins can view this page.</p>";
-	exit;
-}
+// if($_SESSION['role'] !== 'Admin') {
+// 	echo "<p class='error-message'>Access Denied. Only Admins can view this page.</p>";
+// 	exit;
+// }
+
+
 
 $sql = "SELECT firstname, lastname, email, role, created_at
 	FROM Users
 	ORDER BY created_at DESC";
-$stmt = $pdo->prepary($sql);
+$stmt = $pdo->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$fullname = $_SESSION['firstname']. ' ' . $_SESSION['lastname'];
-$role = $_SESSION['role'];
+// Add these when login finished
+
+// $fullname = $_SESSION['firstname']. ' ' . $_SESSION['lastname'];
+// $role = $_SESSION['role'];
 
 ?>
 
