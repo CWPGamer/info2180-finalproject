@@ -1,0 +1,77 @@
+<?php
+
+session_start();
+require 'config.php';
+
+if (!isset($_SESSION['user_id'])){
+	header('Location: DOLPHIN_LOGIN.php');
+	exit;
+}
+
+if($_SESSION['role'] !== 'Admin') {
+	echo "<p class='error-message'>Access Denied. Only Admins can view this page.</p>";
+	exit;
+}
+
+$sql = "SELECT firstname, lastname, email, role, created_at
+	FROM Users
+	ORDER BY created_at DESC";
+$stmt = $pdo->prepary($sql);
+$stmt->execute();
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$fullname = $_SESSION['firstname']. ' ' . $_SESSION['lastname'];
+$role = $_SESSION['role'];
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Dolphin CRM - Users</title>
+	<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<header>
+	<h1>Dolphin CRM</h1>
+	<div class="header-subtitle">
+		Logged in as <?php echo htmlspecialchars($fullname); ?> (<?php echo htmlspecialchars($role); ?>)
+	</div>
+	<nav>
+		<a href="dashboard.php">Home</a>
+		<a href="DOLPHIN_VIEW_USER.php">Users</a>
+		<a href="logout.php">Logout</a>
+	</nav>
+</header>
+
+<main>
+	<div class="page-header">
+		<h2>Users</h2>
+		<a href="#" class="btn btn-primary">+ Add Users</a>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Role</th>
+				<th>Created</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($users as $user): ?>
+			<tr>
+				<td><?php echo htmlspecialchars($user['firstname'] . ' ' . $user['lastname']); ?></td>
+				<td><?php echo htmlspecialchars($user['email']); ?></td>
+				<td><?php echo htmlspecialchars($user['role']); ?></td>
+				<td><?php echo htmlspecialchars($user['created_at']); ?></td>
+			</tr>
+		<?php endforeach; ?>
+		</tbody>
+	</table>
+</main>
+
+</body>
+</html>	
