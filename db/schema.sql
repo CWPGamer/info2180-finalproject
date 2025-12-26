@@ -76,7 +76,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`password`, `email`, `role`) VALUES ('password123', 'admin@project2.com', 'Admin');
+INSERT INTO `users` (`password`, `email`, `role`) VALUES (SHA2('password123', 256), 'admin@project2.com', 'Admin');
 
 --
 -- Indexes for dumped tables

@@ -1,14 +1,18 @@
 <?php
     session_start();
     $key = hash("sha512", microtime());
-    $_SESSION['crsf_token'] = $key;
+    $_SESSION['csrf_token'] = $key;
+    require 'php\config.php';
+
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL | E_STRICT);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Add New User Test</title>
-    <link rel="stylesheet" href="..\styles\styles.css">
-    <script type="text/javascript" src="..\scripts\new_user.js"></script>
+    <link rel="stylesheet" href="styles\styles.css">
+    <script type="text/javascript" src="scripts\new_user.js"></script>
 </head>
 
 <body>
@@ -22,8 +26,9 @@
         <main>
             <p>New User</p>
             <div class='container'>
-                <form name="add_user" id="add_user" action="php\new_user.php" method="post">
-                    <input type="hidden" name="crsf_token" value="<?php echo $key?>">
+                <!-- <form name="add_user" id="add_user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"> -->
+                <form name="add_user" id="add_user" action="php\process_new_user.php" method="post">
+                    <input type="hidden" name="csrf_token" value="<?php echo $key?>">
 
                     <label for="firstname">First Name</label>
                     <input maxlength="32" id='firstname' type="text" size="32" name='firstname' required>
@@ -33,10 +38,10 @@
                     <br>
 
                     <label for="email">Email</label>
-                    <input type="email" size="32" id="email" required>
+                    <input type="email" size="32" name="email" id="email" required>
 
                     <label for="password">Password</label>
-                    <input type="password" minlength="8" maxlength="32" size="32" pattern="/^(?=.*[A-Z])(?=.*[\d])(?=.*[a-z]).{8,}$/gm" id="password" required>
+                    <input type="password" minlength="8" maxlength="32" size="32" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-zA-Z])\S{8,}$" name="password" id="password" required>
                     <br>
 
                     <label for="role">Role</label>

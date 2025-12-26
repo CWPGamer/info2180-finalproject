@@ -34,7 +34,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
 	<meta charset="utf-8">
 	<title>Dolphin CRM - Users</title>
-	<link href="styles.css" rel="stylesheet">
+	<link href="styles\styles.css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -44,6 +44,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	</div>
 	<nav>
 		<a href="dashboard.php">Home</a>
+		<a href="new_user.php">Add User</a>
 		<a href="DOLPHIN_VIEW_USER.php">Users</a>
 		<a href="logout.php">Logout</a>
 	</nav>
@@ -76,6 +77,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		</tbody>
 	</table>
 </main>
-
+<footer>
+    Dolphin Customer Relationship Management &copy 2025
+</footer>     
 </body>
 </html>	
