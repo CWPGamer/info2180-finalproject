@@ -25,7 +25,7 @@ if (!$data){
         throw $th;
     }
 }
-if ($_SESSION['user_id']){
+if (isset($_SESSION['user_id'])){
     $fullname = $_SESSION['fullname'];
     $role = $_SESSION['role'];    
 }

@@ -7,9 +7,11 @@
   width: 100%;  
   display: grid;
   grid-template-columns:  1fr 4fr;
-  /* grid-template-rows: 1fr 5fr .3fr; */
-  grid-template-rows: auto 1fr auto;
-  grid-gap: 0px;
+  grid-template-rows: 1fr 5fr .3fr;
+  /* grid-template-rows: repeat(3, auto); */
+
+  /* gap: 10px;   */
+  /* grid-gap: 0px; */
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -23,10 +25,13 @@ html, body{
   width: 100vw;
 
   color: #000009;
-  background-color: #d8e7f1;
+  background-color: #e9eef2;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
+p{
+  font-size: 12px;
+}
 
 img[src='images\\dolphin-8045833_640.png']{
   width: 3%;
@@ -43,16 +48,19 @@ header {
   background-color: #1f5572;
   color: var(--head_foot_color);
   font-size: 1.25em;
+  height: 100%;
   gap: 20px;
   clear: both;
 }
 
 header > p {
   text-align: right;
+  font-size: 16px;
 }
 
 main {
-  padding-left: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
   /* margin-top: 0.1em; */
   /* float: right; */
   grid-column: 2;
@@ -61,37 +69,221 @@ main {
 
 aside {
   padding-left: 10px;
-  /* float: left; */
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   align-items: left;
   gap: 20px;
   grid-column: 1;
   grid-row: 2;
-  background-color: #a5d8ee;
+  background-color: #c7def0;
+  height: 100%;
 }
 
 footer{
   text-align: left;
-  background-color: #3F7BA4;
+  background-color: #1f5572;
+  width: 100%;
   color: var(--head_foot_color);
   grid-column: 1/3;
   grid-row: 3;
   clear: both;
-  padding: 5px;
+  padding: 5px 5px;
+  bottom: 0;
+  position: fixed;
 }
 table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse:collapse;
+  border: 2px solid #c7def0;
   margin-top: 10px;
   font-size: 14px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-th {
+th{
+  background-color: #468fc6;
+}
+
+tr{
+  background-color: #e0e9f0;
+}
+
+th, td{
     text-align: left;
+    border: none;
+    padding: 10px;
+    border-bottom: 1px solid #858585;
 }
 
 .table_title{
   text-align: left;
   font-size: 20px;
+  margin-bottom: 10px;
 }
+
+button {
+  border-radius: 7px;
+  margin-top: 18px;
+  width: auto;
+  height: 30px;
+  padding: 5px 5px;
+  font-size: 15px;
+}
+
+button:hover{
+  background-color: #468fc6;
+}
+/* form button:hover{
+  background-color: #45eb8d;
+} */
+a{
+  padding: 10px 10px 10px 10px;
+  text-decoration: none;
+  border-radius: 10px;
+  color: #3329a5;
+}
+
+button a, button a:hover{
+  text-align: center;
+  text-decoration: none;
+  color: #000009;
+  padding: auto;
+  
+  /* padding-top: .5em;
+  padding-bottom: .5em;
+  padding-left: 1.15em;
+  padding-right: 1.15em; */
+  background-color: none;
+  height: 100%;
+  width: 100%;
+}
+.dead{
+  border-style: none;
+}
+.dead:hover{
+  background-color: hsla(206, 53%, 53%, 0%);
+}
+button a:hover{
+  text-decoration: none;
+  background-color: #468fc6;
+}
+
+table a:hover{
+  background-color: #9cc3e1;
+}
+
+a:hover{
+  text-decoration: none;
+  background-color: #ebe5e5;
+}
+
+.filters{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.filters a{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+hr{
+  height: 1.5px;
+  background-color: #fdfdff;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  margin: 20px auto;
+}
+
+.top-bar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-bar a{
+  border-collapse:separate;
+  border-color: #000009;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#contact_header{
+  background-color: #d4dbe0;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#contact_header > h2{
+  margin-top: 1%;
+  margin-bottom: 0%;
+}
+
+#contact_header > p{
+  font-size: 12px;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  
+}
+
+.content{
+  margin-top: 1em;
+  background-color: #c7def0;
+  padding: 20px;
+  border-radius: 5px;
+}
+#contact{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+}
+
+.active{
+  text-decoration: underline;
+  text-decoration-line: underline;
+}
+
+.formcard {
+    background: #ffffff;
+    margin-left: 220px;
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.15rem;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+}
+input, select, textarea{
+  width: 80%;
+  padding: 0.6rem 0.75rem;  
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;  
+}
+
+/* form submit:hover{
+  background-color: rgb(140, 203, 77);
+} */
