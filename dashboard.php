@@ -55,25 +55,33 @@ $role = $_SESSION['role'];
 
 <div class="layout">
 
-	<aside class="sidebar">
-		<h2>Dolphin CRM</h2>
-		<ul>
-			<li><a href="dashboard.php">Home</a></li>
-			<li><a href="create_contact.php">New Contact</a></li>
-			<?php if ($_SESSION['role'] === "Admin"){ echo '<li><a href="DOLPHIN_VIEW_USER.php"> View Users</a></li>';} ?>
-			<?php if ($_SESSION['role'] === "Admin"){ echo '<li><a href="new_user.php"> Add User</a></li>';} ?>
-			<li><a href="logout.php">Logout</a></li>
-		</ul>
+	<header>
+		<img src="images\dolphin-8045833_640.png" alt="Dolphin Logo">
 
-		<p class="user_info">
-			<?php echo htmlspecialchars($fullname); ?><br>
+		<h1>Dolphin CRM</h1>
+
+		<p class="header-subtitle">Logged in as <?php echo htmlspecialchars($_SESSION['fullname']); ?> (<?php echo htmlspecialchars($_SESSION['role']); ?>)</p>
+
+	</header>
+	<aside class="sidebar">
+		<!-- <h2>Dolphin CRM</h2> -->
+		<div class="user_info">
+			<h3>Account Info</h3>
+			<?php echo htmlspecialchars($fullname); ?> 
 			(<?php echo htmlspecialchars($role); ?>)
-		</p>
+		</div>
+		<nav>
+			<a href="dashboard.php">Home</a><br>
+			<a href="create_contact.php">New Contact</a><br>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="DOLPHIN_VIEW_USER.php"> View Users</a><br>';} ?>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="new_user.php"> Add User</a><br>';} ?>
+			<a href="logout.php">Logout</a>
+		</nav>
 	</aside>
 
 	<main>
 		<div class="top-bar">
-			<h1>Dashboard</h1>
+			<h2>Dashboard</h2>
 			<a class="btn-add" href="create_contact.php">+ Add New Contact</a>
 		</div>
 
@@ -86,6 +94,7 @@ $role = $_SESSION['role'];
 		</div>
 
 		<table class="table">
+			<caption class="table_title">List of Contacts</caption>
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -94,6 +103,7 @@ $role = $_SESSION['role'];
 					<th>Type</th>
 					<th>Details</th>
 				</tr>
+				<br>
 			</thead>
 			<tbody>
 				<?php foreach ($contacts as $c): ?>

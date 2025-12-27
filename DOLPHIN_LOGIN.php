@@ -7,7 +7,7 @@
     $_SESSION['csrf_token'] = $key;
 
     if (isset($_SESSION['user_id'])){
-        header('Location: DOLPHIN_VIEW_USER.php');
+        header('Location: dashboard.php');
         exit;
     }
 ?>
@@ -22,13 +22,12 @@
     <script src="scripts\LOGIN.js"></script>
 </head>
 <body>
-    <div id="main-area">
+    <div id="main-area" class="container">
 
-        <header>
-            <div class="container">
-                <h1>DOLPHIN CRM</h1>
-            </div>
-        </header>
+	<header>
+		<img src="images\dolphin-8045833_640.png" alt="Dolphin Logo">
+		<h1>Dolphin CRM</h1>
+	</header>
         
         <main>
             <h2>LOGIN</h2>
@@ -50,7 +49,7 @@
             <p id="message"></p>
                     
         </main>
-                
+        
         <footer>
             Dolphin Customer Relationship Management &copy 2025
         </footer>

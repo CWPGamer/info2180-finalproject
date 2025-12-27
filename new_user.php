@@ -31,13 +31,27 @@
 <body>
     <div class="container">
         <header>
-            <p>Dolphin CRM</p>
+            <img src="images\dolphin-8045833_640.png" alt="Dolphin Logo">
+            <h1>Dolphin CRM</h1>
+            <p class="header-subtitle">Logged in as <?php echo htmlspecialchars($_SESSION['fullname']); ?> (<?php echo htmlspecialchars($_SESSION['role']); ?>)</p>
         </header>
-        <aside>
-            <p>Aside</p>
-        </aside>
+	<aside class="sidebar">
+		<!-- <h2>Dolphin CRM</h2> -->
+		<div class="user_info">
+			<h3>Account Info</h3>
+			<?php echo htmlspecialchars($fullname); ?> 
+			(<?php echo htmlspecialchars($role); ?>)
+		</div>
+		<nav>
+			<a href="dashboard.php">Home</a><br>
+			<a href="create_contact.php">New Contact</a><br>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="DOLPHIN_VIEW_USER.php"> View Users</a><br>';} ?>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="new_user.php"> Add User</a><br>';} ?>
+			<a href="logout.php">Logout</a>
+		</nav>
+	</aside>
         <main>
-            <p>New User</p>
+            <h2>New User</h2>
             <div class='container'>
                 <!-- <form name="add_user" id="add_user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"> -->
                 <form name="add_user" id="add_user" action="" method="post">
