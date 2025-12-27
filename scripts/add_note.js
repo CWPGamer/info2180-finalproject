@@ -11,8 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 console.log(result);
                 // document.getElementById("message").innerText = result;
+                // window.location.href = result;
+                $("body").html(result);
                 if (result === "Success"){
-                    // window.location.assign('dashboard.php');
                 }
             }
         });

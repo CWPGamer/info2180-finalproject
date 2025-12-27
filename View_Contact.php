@@ -12,15 +12,21 @@ if (!isset($_SESSION['user_id'])){
 }
 
 // if (!isset($_SESSION['user_id'])) {
-//   $_SESSION['user_id'] = 0; 
+//   $_SESSION['user_id'] = 0;
 // }
 $userId = (int)$_SESSION['user_id'];
+// echo $userId;
+$contactId = null;
+if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 
-
-// if (!isset($_GET['id'])) {
-//   die("No contact selected.");
-// }
-$contactId = (int)$_GET['id'];
+  if (!isset($_GET['id'])) {
+    die("No contact selected.");
+  } else{
+    $contactId = (int)$_GET['id'];
+  }
+} else{
+  $contactId = trim($_POST['contact_id'] ?? '');  
+}
 // if ($contactId <= 0) {
 //   die("Invalid contact id.");
 // }
@@ -51,7 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   
   if (isset($_POST['add_note'])) {
-    $comment = trim($_POST['comment'] ?? '');
+    $comment = trim($_POST['comment']);
+    $contactId = trim($_POST['contact_id']);
+    echo $contactId;
 
     if ($comment === '') {
       $message = "Note cannot be empty.";
@@ -116,7 +124,7 @@ function displayUser($note) {
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Contact Details</title>
+  <title>Dolphin CRM - Contact Details</title>
   <link rel="stylesheet" href="styles\styles.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="scripts\add_note.js"></script>
@@ -201,6 +209,7 @@ function displayUser($note) {
       <br>
       
       <form id="note_form" method="post">
+        <input type="hidden" name='contact_id' value="<?php echo $contactId;?>">
         <h4>Add a Note about <?=$contact['firstname']; ?></h4>
         <textarea placeholder="Type Here..." name="comment" required></textarea><br>
         <button type="submit" name="add_note">Add Note</button>

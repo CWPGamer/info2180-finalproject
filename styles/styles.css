@@ -128,7 +128,6 @@ button {
   margin-top: 18px;
   width: auto;
   height: 30px;
-  /* height: 100%; */
   padding: 5px 5px;
   font-size: 15px;
 }
@@ -136,27 +135,61 @@ button {
 button:hover{
   background-color: #468fc6;
 }
-
+/* form button:hover{
+  background-color: #45eb8d;
+} */
 a{
+  padding: 10px 10px 10px 10px;
   text-decoration: none;
-  color: #3426c6;
+  border-radius: 10px;
+  color: #3329a5;
 }
 
 button a, button a:hover{
+  text-align: center;
   text-decoration: none;
   color: #000009;
+  padding: auto;
+  
+  /* padding-top: .5em;
+  padding-bottom: .5em;
+  padding-left: 1.15em;
+  padding-right: 1.15em; */
+  background-color: none;
+  height: 100%;
+  width: 100%;
+}
+.dead{
+  border-style: none;
+}
+.dead:hover{
+  background-color: hsla(206, 53%, 53%, 0%);
+}
+button a:hover{
+  text-decoration: none;
+  background-color: #468fc6;
 }
 
+table a:hover{
+  background-color: #9cc3e1;
+}
 
 a:hover{
-  text-decoration: underline;
+  text-decoration: none;
+  background-color: #ebe5e5;
 }
 
 .filters{
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 25px;
   margin-bottom: 20px;
+}
+
+.filters a{
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 hr{
@@ -173,8 +206,21 @@ hr{
   justify-content: space-between;
 }
 
+.top-bar a{
+  border-collapse:separate;
+  border-color: #000009;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#contact_header{
+  background-color: #d4dbe0;
+  border-radius: 5px;
+  padding: 10px;
+}
+
 #contact_header > h2{
-  margin-top: 5%;
+  margin-top: 1%;
   margin-bottom: 0%;
 }
 
@@ -182,12 +228,10 @@ hr{
   font-size: 12px;
   margin-top: 0%;
   margin-bottom: 0%;
+  
 }
 
 .content{
-  /* display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto; */
   margin-top: 1em;
   background-color: #c7def0;
   padding: 20px;
@@ -204,25 +248,42 @@ hr{
   text-decoration-line: underline;
 }
 
-#user-form{
-  /* display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto auto auto; */
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;  
+.formcard {
+    background: #ffffff;
+    margin-left: 220px;
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-input, select {
-  width: 50%;
-  padding: 8px;
-  margin: 8px 0;
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.15rem;
+}
 
-  align-items: center;
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+}
+input, select, textarea{
+  width: 80%;
+  padding: 0.6rem 0.75rem;  
+  margin: 8px 0;
   border: 1px solid #ccc;
   border-radius: 4px;  
 }
 
-/* form button[type=submit]{
-  width: 100%;
+/* form submit:hover{
+  background-color: rgb(140, 203, 77);
 } */

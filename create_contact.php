@@ -78,10 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>New Contact</title>
+  <title>Dolphin CRM - New Contact</title>
   <link rel="stylesheet" href="styles\styles.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 </head>
 
 <body>
@@ -111,85 +110,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</nav>
 	</aside>
 
-<main>
-  <div class="wrap">
-    <h2>New Contact</h2>
-    
-    <div class="card">
-      <form id="contactForm" method="post">
-        
-        <div class="field">
-          <label for="title">Title</label>
-          <select name="title" id="title">
-            <option value="">--</option>
-            <option>Mr.</option>
-            <option>Mrs.</option>
-            <option>Ms.</option>
-            <option>Dr.</option>
-          </select>
-        </div>
-        
-        <div class="field">
-          <label for="firstname">First Name</label>
-          <input id="firstname" name="firstname" required>
-        </div>
-        
-        <div class="field">
-          <label for="lastname">Last Name</label>
-          <input id="lastname" name="lastname" required>
-        </div>
-        
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" required>
-        </div>
-        
-        <div class="field">
-          <label for="telephone">Telephone</label>
-          <input id="telephone" placeholder="888-888-8888" name="telephone" required>
-        </div>
-  
-        <div class="field">
-          <label for="company">Company</label>
-          <input id="company" name="company" required>
-        </div>
-        
-        <div class="field">
-          <label for="type">Type</label>
-          <select name="type" id="type">
-            <option>Sales Lead</option>
-            <option selected>Support</option>
-          </select>
-        </div>
-        
-        <div class="field">
-          <label for="assigned_to">Assigned To</label>
-          <select name="assigned_to" id="assigned_to" required>
-            <option value="">-- Select --</option>
-            <?php foreach ($users as $u): ?>
-              <option value="<?= $u['id'] ?>">
-                <?= clean(($u['firstname'] ?? '') . ' ' . ($u['lastname'] ?? '')) ?: $u['email'] ?>
-              </option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          
-          <button type="submit">Save</button>
-          
-          <!-- <?php if ($message): ?>
-            <div class="msg <?= $messageClass ?>"><?= $message ?></div>
-            <?php endif; ?> -->
-          
-          <p id="message"></p>
-          </form>
-        </div>
-      </div>
-    </main>
-    <footer>
-      Dolphin Customer Relationship Management &copy 2025
-    </footer>  	
+  <main>
+    <div class="wrap">
+      <h2>New Contact</h2>
+      
+      <div class="content">
+        <form id="contactForm" method="post">
+          <div class="form-grid">
 
-    <script src="scripts\create_contact.js"></script>
-  </div>
+            <div class="field">
+              <label for="title">Title</label>
+              <select name="title" id="title">
+                <option value="">--</option>
+                <option>Mr.</option>
+                <option>Mrs.</option>
+                <option>Ms.</option>
+                <option>Dr.</option>
+              </select>
+            </div>
+            <br>
+            
+            <div class="field">
+              <label for="firstname">First Name</label>
+              <input id="firstname" name="firstname" type='text' pattern='^\S+$' required>
+            </div>
+            
+            <div class="field">
+              <label for="lastname">Last Name</label>
+              <input id="lastname" name="lastname" type='text' pattern='^\S+$' required>
+            </div>
+            
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="name@domain" aria-invalid="true" required>
+            </div>
+            
+            <div class="field">
+              <label for="telephone">Telephone</label>
+              <input id="telephone" placeholder="888-888-8888" pattern='^\d{3}-\d{3}-\d{4}$' name="telephone" required>
+            </div>
+            
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" name="company" pattern='^\S+$' required>
+            </div>
+            
+            <div class="field">
+              <label for="type">Type</label>
+              <select name="type" id="type">
+                <option>Sales Lead</option>
+                <option selected>Support</option>
+              </select>
+            </div>
+            
+            <div class="field">
+              <label for="assigned_to">Assigned To</label>
+              <select name="assigned_to" id="assigned_to" required>
+                <option value="">-- Select --</option>
+                <?php foreach ($users as $u): ?>
+                  <option value="<?= $u['id'] ?>">
+                    <?= clean(($u['firstname'] ?? '') . ' ' . ($u['lastname'] ?? '')) ?: $u['email'] ?>
+                  </option>
+                  <?php endforeach; ?>
+                </select>
+            </div>
+              <br>
+              <button type="submit">Save</button>
+              <p id="message"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer>
+      Dolphin Customer Relationship Management &copy 2025
+  </footer>
+
+  <script src="scripts\create_contact.js"></script>
+</div>
 </body>
 </html>

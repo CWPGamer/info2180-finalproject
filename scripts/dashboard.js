@@ -8,6 +8,7 @@ $(document).ready(function() {
             data : {filter: filter},
             type: 'GET',
             success: function (result) {
+                $("html").html(result);
                 $("body").html(result);
             }
         });

@@ -48,7 +48,7 @@ $role = $_SESSION['role'];
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Dolphin CRM Dashboard</title>
+	<title>Dolphin CRM - Dashboard</title>
 	<link href="styles\styles.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="scripts\dashboard.js"></script>
@@ -84,7 +84,8 @@ $role = $_SESSION['role'];
 	<main>
 		<div class="top-bar">
 			<h2>Dashboard</h2>
-			<button><a class="btn-add" href="create_contact.php">Add New Contact</a></button>
+			<!-- <button onclick="window.location.href='create_contact.php'">Add New Contact</button> -->
+			<button class='dead' disabled='disabled'><a class="btn-add" href="create_contact.php">Add New Contact</a></button>
 		</div>
 		<div class="content">
 			<div style="clear: both;" class="filters">

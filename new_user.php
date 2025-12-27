@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add New User Test</title>
+    <title>Dolphin CRM - New User</title>
     <link rel="stylesheet" href="styles\styles.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="scripts\new_user.js"></script>
@@ -57,31 +57,45 @@
             <div class='content' id='user-form'>
                 <!-- <form name="add_user" id="add_user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"> -->
                 <form name="add_user" id="add_user" action="" method="post">
+                    
                     <input type="hidden" name="csrf_token" value="<?php echo $key?>">
+                    
+                    <div class="form-grid">
+                        <div>
 
-                    <label for="firstname">First Name</label>
-                    <input maxlength="32" id='firstname' type="text" size="32" name='firstname' required>
+                            <label for="firstname">First Name</label>
+                            <input maxlength="32" id='firstname' type="text" size="32" name='firstname' required>
+                        </div>
+                        <div>
 
-                    <label for="lastname">Last Name</label>
-                    <input maxlength="32" id='lastname' type="text" size="32" name='lastname' required>
-                    <br>
+                            <label for="lastname">Last Name</label>
+                            <input maxlength="32" id='lastname' type="text" size="32" name='lastname' required>
+                        </div>
+                        <!-- <br> -->
+                        <div>
 
-                    <label for="email">Email</label>
-                    <input type="email" size="32" name="email" id="email" required>
+                            <label for="email">Email</label>
+                            <input type="email" size="32" name="email" id="email" required>
+                        </div>
+                        
+                        <div>
 
-                    <label for="password">Password</label>
-                    <input type="password" minlength="8" maxlength="32" size="32" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-zA-Z])\S{8,}$" name="password" id="password" required>
-                    <br>
-
-                    <label for="role">Role</label>
-                    <select size=1 name="role" id="role">
-                        <option value="Member">Member</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                    <br>
-                    <button id="submit_user" type="submit">SUBMIT</button>
+                            <label for="password">Password</label>
+                            <input type="password" minlength="8" maxlength="32" size="32" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-zA-Z])\S{8,}$" name="password" id="password" required>
+                        </div>
+                        <!-- <br> -->
+                        <div>
+                            <label for="role">Role</label>
+                            <select size=1 name="role" id="role">
+                                <option value="Member">Member</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                        <br>
+                        <button id="submit_user" type="submit">SUBMIT</button>
+                    </div>
                 </form>
-
+                
             </div>
             <p id="message"></p>
         </main>
