@@ -25,27 +25,39 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Dolphin CRM - Users</title>
+	<title>Dolphin CRM - Users List</title>
 	<link href="styles\styles.css" rel="stylesheet">
 </head>
 <body>
 <header>
+	<img src="images\dolphin-8045833_640.png" alt="Dolphin Logo">
+
 	<h1>Dolphin CRM</h1>
 	<div class="header-subtitle">
 		Logged in as <?php echo htmlspecialchars($_SESSION['fullname']); ?> (<?php echo htmlspecialchars($_SESSION['role']); ?>)
 	</div>
+</header>
+
+<aside class="sidebar">
+	<!-- <h2>Dolphin CRM</h2> -->
+	<div class="user_info">
+		<h3>Account Info</h3>
+		<?php echo htmlspecialchars($fullname); ?> 
+		(<?php echo htmlspecialchars($role); ?>)
+	</div>
 	<nav>
-		<a href="dashboard.php">Home</a>
-		<a href="new_user.php">Add User</a>
-		<a href="DOLPHIN_VIEW_USER.php">Users</a>
+		<a href="dashboard.php">Home</a><br>
+		<a href="create_contact.php">New Contact</a><br>
+		<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="DOLPHIN_VIEW_USER.php"> View Users</a><br>';} ?>
+		<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="new_user.php"> Add User</a><br>';} ?>
 		<a href="logout.php">Logout</a>
 	</nav>
-</header>
+</aside>
 
 <main>
 	<div class="page-header">
 		<h2>Users</h2>
-		<a href="#" class="btn btn-primary">+ Add Users</a>
+		<a href="#" class="btn btn-primary">Add Users +</a>
 	</div>
 
 	<table id="user_table">
@@ -71,6 +83,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		</tbody>
 	</table>
 </main>
+
 <footer>
     Dolphin Customer Relationship Management &copy 2025
 </footer>     

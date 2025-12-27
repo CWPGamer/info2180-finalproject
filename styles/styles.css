@@ -1,11 +1,97 @@
+:root{
+  --head_foot_color: #e0e9f0;
+}
+
+.layout{
+  height: 100%;
+  width: 100%;  
+  display: grid;
+  grid-template-columns:  1fr 4fr;
+  /* grid-template-rows: 1fr 5fr .3fr; */
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 0px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body{
+  margin:0;
+  padding:0;  
+
+  height: 100vh;
+  width: 100vw;
+
+  color: #000009;
+  background-color: #d8e7f1;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+img[src='images\\dolphin-8045833_640.png']{
+  width: 3%;
+  height: auto;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  grid-column: 1/-1;
+  grid-row: 1;
+  padding-left: 15px;
+  background-color: #1f5572;
+  color: var(--head_foot_color);
+  font-size: 1.25em;
+  gap: 20px;
+  clear: both;
+}
+
+header > p {
+  text-align: right;
+}
+
+main {
+  padding-left: 10px;
+  /* margin-top: 0.1em; */
+  /* float: right; */
+  grid-column: 2;
+  grid-row: 2;
+}
+
+aside {
+  padding-left: 10px;
+  /* float: left; */
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 20px;
+  grid-column: 1;
+  grid-row: 2;
+  background-color: #a5d8ee;
+}
+
+footer{
+  text-align: left;
+  background-color: #3F7BA4;
+  color: var(--head_foot_color);
+  grid-column: 1/3;
+  grid-row: 3;
+  clear: both;
+  padding: 5px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
   font-size: 14px;
-  /* border-radius: 2px; */
 }
 
 th {
     text-align: left;
+}
+
+.table_title{
+  text-align: left;
+  font-size: 20px;
 }
