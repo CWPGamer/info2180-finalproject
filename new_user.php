@@ -29,30 +29,32 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="layout">
         <header>
             <img src="images\dolphin-8045833_640.png" alt="Dolphin Logo">
             <h1>Dolphin CRM</h1>
             <p class="header-subtitle">Logged in as <?php echo htmlspecialchars($_SESSION['fullname']); ?> (<?php echo htmlspecialchars($_SESSION['role']); ?>)</p>
         </header>
 	<aside class="sidebar">
-		<!-- <h2>Dolphin CRM</h2> -->
 		<div class="user_info">
 			<h3>Account Info</h3>
 			<?php echo htmlspecialchars($fullname); ?> 
 			(<?php echo htmlspecialchars($role); ?>)
+			<hr>
 		</div>
+
 		<nav>
-			<a href="dashboard.php">Home</a><br>
-			<a href="create_contact.php">New Contact</a><br>
-			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="DOLPHIN_VIEW_USER.php"> View Users</a><br>';} ?>
+			<a href="dashboard.php">Home</a><br><br>
+			<a href="create_contact.php">New Contact</a><br><br>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="DOLPHIN_VIEW_USER.php"> View Users</a><br><br>';} ?>
 			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="new_user.php"> Add User</a><br>';} ?>
+			<hr>
 			<a href="logout.php">Logout</a>
 		</nav>
 	</aside>
         <main>
             <h2>New User</h2>
-            <div class='container'>
+            <div class='content' id='user-form'>
                 <!-- <form name="add_user" id="add_user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"> -->
                 <form name="add_user" id="add_user" action="" method="post">
                     <input type="hidden" name="csrf_token" value="<?php echo $key?>">
@@ -76,13 +78,12 @@
                         <option value="Member">Member</option>
                         <option value="Admin">Admin</option>
                     </select>
-
                     <br>
                     <button id="submit_user" type="submit">SUBMIT</button>
                 </form>
 
-                <p id="message"></p>
             </div>
+            <p id="message"></p>
         </main>
         <footer>
             Dolphin Customer Relationship Management &copy 2025

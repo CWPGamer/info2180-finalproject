@@ -1,25 +1,29 @@
 <?php
 session_start();
-require_once 'db.php';
+require 'php\config.php';
 
 function clean($v) {
   return htmlspecialchars(trim($v), ENT_QUOTES, 'UTF-8');
 }
 
-
-if (!isset($_SESSION['user_id'])) {
-  $_SESSION['user_id'] = 0; 
+if (!isset($_SESSION['user_id'])){
+    header('Location: DOLPHIN_LOGIN.php');
+    exit;
 }
+
+// if (!isset($_SESSION['user_id'])) {
+//   $_SESSION['user_id'] = 0; 
+// }
 $userId = (int)$_SESSION['user_id'];
 
 
-if (!isset($_GET['id'])) {
-  die("No contact selected.");
-}
+// if (!isset($_GET['id'])) {
+//   die("No contact selected.");
+// }
 $contactId = (int)$_GET['id'];
-if ($contactId <= 0) {
-  die("Invalid contact id.");
-}
+// if ($contactId <= 0) {
+//   die("Invalid contact id.");
+// }
 
 $message = "";
 
@@ -56,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "INSERT INTO notes (contact_id, comment, created_by, created_at)
          VALUES (?, ?, ?, NOW())"
       );
-      $stmt->execute([$contactId, clean($comment), $userId]);
+      $stmt->execute([$contactId, htmlspecialchars($comment), $userId]);
 
       
       $stmt = $pdo->prepare("UPDATE contacts SET updated_at=NOW() WHERE id=?");
@@ -71,6 +75,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $stmt = $pdo->prepare("SELECT * FROM contacts WHERE id=?");
 $stmt->execute([$contactId]);
 $contact = $stmt->fetch();
+
+$user_assigned_Id = clean($contact['assigned_to']);
+$stmt = $pdo->prepare('SELECT id, firstname, lastname FROM users WHERE id = :id');
+$stmt->bindParam(':id', $user_assigned_Id);
+$stmt->execute();
+$user_assigned = $stmt->fetch();
+
+$user_created_Id = clean($contact['created_by']);
+$stmt->bindParam(':id', $user_created_Id);
+$stmt->execute();
+$user_created = $stmt->fetch();
 
 if (!$contact) {
   die("Contact not found.");
@@ -88,7 +103,7 @@ $stmt = $pdo->prepare(
 $stmt->execute([$contactId]);
 $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-\
+// \
 function displayUser($note) {
   $name = trim(($note['firstname'] ?? '') . ' ' . ($note['lastname'] ?? ''));
   if ($name !== '') return $name;
@@ -102,7 +117,9 @@ function displayUser($note) {
 <head>
   <meta charset="utf-8">
   <title>Contact Details</title>
-  <link rel="stylesheet" href="create_contact.css">
+  <link rel="stylesheet" href="styles\styles.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="scripts\add_note.js"></script>
   <style>
     .actions { margin: 12px 0; }
     .actions button { margin-right: 8px; }
@@ -113,52 +130,86 @@ function displayUser($note) {
 </head>
 
 <body>
-<div class="wrap">
-  <h2>
-    <?= clean($contact['title']) ?>
-    <?= clean($contact['firstname']) ?>
-    <?= clean($contact['lastname']) ?>
-  </h2>
+<div class="layout">
+	<header>
+		<img src="images\dolphin-8045833_640.png" alt="Dolphin Logo">
+		<h1>Dolphin CRM</h1>
+		<p class="header-subtitle">Logged in as <?php echo htmlspecialchars($_SESSION['fullname']); ?> (<?php echo htmlspecialchars($_SESSION['role']); ?>)</p>
+	</header>
+  
+	<aside class="sidebar">
+		<div class="user_info">
+			<h3>Account Info</h3>
+			<?php echo htmlspecialchars($fullname); ?> 
+			(<?php echo htmlspecialchars($role); ?>)
+			<hr>
+		</div>
 
-  <?php if ($message): ?>
-    <p class="msg ok"><?= clean($message) ?></p>
-  <?php endif; ?>
+		<nav>
+			<a href="dashboard.php">Home</a><br><br>
+			<a href="create_contact.php">New Contact</a><br><br>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="DOLPHIN_VIEW_USER.php"> View Users</a><br><br>';} ?>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<a href="new_user.php"> Add User</a><br>';} ?>
+			<hr>
+			<a href="logout.php">Logout</a>
+		</nav>
+	</aside>
 
-  <p><strong>Email:</strong> <?= clean($contact['email']) ?></p>
-  <p><strong>Company:</strong> <?= clean($contact['company']) ?></p>
-  <p><strong>Telephone:</strong> <?= clean($contact['telephone']) ?></p>
-  <p><strong>Type:</strong> <?= clean($contact['type']) ?></p>
-  <p><strong>Created:</strong> <?= clean($contact['created_at']) ?></p>
-  <p><strong>Updated:</strong> <?= clean($contact['updated_at']) ?></p>
+  <main>
+    <div class="top-bar">
+      <div id="contact_header">
+        <h2>
+          <?= clean($contact['title']) ?>
+          <?= clean($contact['firstname']) ?>
+          <?= clean($contact['lastname']) ?>
+        </h2>
+        <p>Created: <?= clean($contact['created_at'] . ' by ' . $user_created['firstname'] . ' ' . $user_created['lastname']); ?></p>
+        <p style="clear: both;">Updated: <?= clean($contact['updated_at']) ?></p>
+      </div>
+      <form method="post" class="actions">
+        <button type="submit" name="assign">Assign to Me</button>
+        <button type="submit" name="switch"><?= ($contact['type'] === 'Sales Lead') ? 'Switch to Sales Lead' : 'Switch to Support'; ?></button>
+      </form>
+    </div>
 
-  <form method="post" class="actions">
-    <button type="submit" name="assign">Assign to me</button>
-    <button type="submit" name="switch">Switch Type</button>
-  </form>
-
- 
-  <div class="noteslist">
-    <h3>Notes</h3>
-
-    <?php if (empty($notes)): ?>
-      <p>No notes available</p>
-    <?php else: ?>
-      <?php foreach ($notes as $note): ?>
-        <div class="note">
-          <p><strong><?= htmlspecialchars(displayUser($note), ENT_QUOTES, 'UTF-8') ?></strong></p>
-          <p><?= nl2br(htmlspecialchars($note['comment'], ENT_QUOTES, 'UTF-8')) ?></p>
-          <p><small><?= htmlspecialchars($note['created_at'], ENT_QUOTES, 'UTF-8') ?></small></p>
-        </div>
-      <?php endforeach; ?>
+    <?php if ($message): ?>
+      <p class="msg ok"><?= clean($message) ?></p>
     <?php endif; ?>
-  </div>
+    
+    <div class="content" id="contact">
+      <p style=""><strong>Email:</strong> <?= clean($contact['email']) ?></p> <p style=""><strong>Telephone:</strong> <?= clean($contact['telephone']) ?></p>
+      <p style=""><strong>Company:</strong> <?= clean($contact['company']) ?></p> <p style=""><strong>Assigned To:</strong> <?= clean($user_assigned['firstname'] . ' ' . $user_assigned['lastname'])?></p>
+    </div>
+    
+    <!-- <p><strong>Type:</strong> <?= clean($contact['type']) ?></p> -->
 
-  <h4>Add Note</h4>
-  <form method="post">
-    <textarea name="comment" required></textarea><br>
-    <button type="submit" name="add_note">Add Note</button>
-  </form>
+  
+    <div class="noteslist content" style="clear: both;">
+      <h3>Notes</h3>
 
+      <?php if (empty($notes)): ?>
+        <p>No notes available</p>
+      <?php else: ?>
+        <?php foreach ($notes as $note): ?>
+          <div class="note">
+            <p><strong><?= htmlspecialchars(displayUser($note), ENT_QUOTES, 'UTF-8') ?></strong></p>
+            <p><?= nl2br(htmlspecialchars_decode($note['comment'], ENT_QUOTES)) ?></p>
+            <p><small><?= htmlspecialchars($note['created_at'], ENT_QUOTES, 'UTF-8') ?></small></p>
+          </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+      <br>
+      
+      <form id="note_form" method="post">
+        <h4>Add a Note about <?=$contact['firstname']; ?></h4>
+        <textarea placeholder="Type Here..." name="comment" required></textarea><br>
+        <button type="submit" name="add_note">Add Note</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    Dolphin Customer Relationship Management &copy 2025
+  </footer>
 </div>
 </body>
 </html>
