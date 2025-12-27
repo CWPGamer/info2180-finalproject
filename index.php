@@ -1,7 +1,11 @@
+<?php
+    header('Location: DOLPHIN_LOGIN.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Dolphin Test</title>
+
 </head>
 
 <body>
@@ -11,7 +15,7 @@
             <p>Dolphin CRM</p>
         </header>
         <main>
-            <a href="phpnew_user.php">Add New User</a>
+            <!-- <a href="phpnew_user.php">Add New User</a> -->
         </main>
         <footer>
             Dolphin Customer Relationship Management &copy 2025

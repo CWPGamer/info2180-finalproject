@@ -1,0 +1,11 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+  /* border-radius: 2px; */
+}
+
+th {
+    text-align: left;
+}

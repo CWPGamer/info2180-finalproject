@@ -13,20 +13,12 @@ require 'php\config.php';
 // 	exit;
 // }
 
-
-
 $sql = "SELECT firstname, lastname, email, role, created_at
 	FROM Users
 	ORDER BY created_at DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Add these when login finished
-
-// $fullname = $_SESSION['firstname']. ' ' . $_SESSION['lastname'];
-// $role = $_SESSION['role'];
-
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +32,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <header>
 	<h1>Dolphin CRM</h1>
 	<div class="header-subtitle">
-		Logged in as <?php echo htmlspecialchars($fullname); ?> (<?php echo htmlspecialchars($role); ?>)
+		Logged in as <?php echo htmlspecialchars($_SESSION['fullname']); ?> (<?php echo htmlspecialchars($_SESSION['role']); ?>)
 	</div>
 	<nav>
 		<a href="dashboard.php">Home</a>
@@ -56,10 +48,11 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		<a href="#" class="btn btn-primary">+ Add Users</a>
 	</div>
 
-	<table class="table">
+	<table id="user_table">
 		<thead>
 			<tr>
-				<th>Name</th>
+				<th>First Name</th>
+				<th>Last Name</th>
 				<th>Email</th>
 				<th>Role</th>
 				<th>Created</th>
@@ -68,7 +61,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		<tbody>
 		<?php foreach ($users as $user): ?>
 			<tr>
-				<td><?php echo htmlspecialchars($user['firstname'] . ' ' . $user['lastname']); ?></td>
+				<td><?php echo htmlspecialchars($user['firstname']); ?></td>
+				<td><?php echo htmlspecialchars($user['lastname']); ?></td>
 				<td><?php echo htmlspecialchars($user['email']); ?></td>
 				<td><?php echo htmlspecialchars($user['role']); ?></td>
 				<td><?php echo htmlspecialchars($user['created_at']); ?></td>

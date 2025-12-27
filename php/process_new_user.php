@@ -1,5 +1,6 @@
 <?php
     session_start();
+    
     require '..\php\config.php';
 
     ini_set('display_errors', 'On');
@@ -18,8 +19,6 @@
         if (!isset($_SESSION['csrf_token']) || $_SESSION['csrf_token'] !== $_POST['csrf_token']){
             throw new Exception("Invalid CSRF");
             // header('Location: ..\new_user.php');
-            echo $_SESSION['csrf_token'];
-            echo $_POST['csrf_token'];
         }
         $user = array(
             "firstname" => $_POST['firstname'],
@@ -53,11 +52,12 @@
         $stmt->bindParam(':password', $hash);
         $stmt->bindParam(':role', $user['role']);
     
-        // try {
-        //     $stmt->execute();
-        //     echo "Insert Done";
-        // } catch (\Throwable $th) {
-        //     throw $th;
-        // }
+        try {
+            $stmt->execute();
+            echo "Added User Successfully";
+        } catch (\Throwable $th) {
+            // throw $th;
+            echo "Failed to Add User";
+        }
     }
 ?>

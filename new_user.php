@@ -1,5 +1,17 @@
 <?php
     session_start();
+
+    if (!isset($_SESSION['user_id'])){
+        header('Location: DOLPHIN_LOGIN.php');
+        exit;
+    }
+
+    if($_SESSION['role'] !== 'Admin') {
+        // echo "<p class='error-message'>Access Denied. Only Admins can view this page.</p>";
+        echo "<script>alert('Access Denied. Only Admins can view this page.')</script>";
+        exit;
+    }
+    
     $key = hash("sha512", microtime());
     $_SESSION['csrf_token'] = $key;
     require 'php\config.php';
@@ -12,6 +24,7 @@
 <head>
     <title>Add New User Test</title>
     <link rel="stylesheet" href="styles\styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="scripts\new_user.js"></script>
 </head>
 
@@ -27,7 +40,7 @@
             <p>New User</p>
             <div class='container'>
                 <!-- <form name="add_user" id="add_user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"> -->
-                <form name="add_user" id="add_user" action="php\process_new_user.php" method="post">
+                <form name="add_user" id="add_user" action="" method="post">
                     <input type="hidden" name="csrf_token" value="<?php echo $key?>">
 
                     <label for="firstname">First Name</label>
@@ -53,6 +66,8 @@
                     <br>
                     <button id="submit_user" type="submit">SUBMIT</button>
                 </form>
+
+                <p id="message"></p>
             </div>
         </main>
         <footer>
