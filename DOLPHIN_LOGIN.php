@@ -52,9 +52,7 @@
         </main>
                 
         <footer>
-            <div class="container">
-                <p> Copyright 2022 &copy DOLPHIN CRM</p>
-            </div>
+            Dolphin Customer Relationship Management &copy 2025
         </footer>
     </div>
 </body>

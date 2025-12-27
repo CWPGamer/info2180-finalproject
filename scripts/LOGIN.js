@@ -12,9 +12,11 @@ document.addEventListener("DOMContentLoaded",function(){
                 console.log(result);
                 document.getElementById("message").innerText = result;
                 if (result === "Success"){
-                    window.location.assign('DOLPHIN_VIEW_USER.php');
+                    window.location.assign('dashboard.php');
                 }
             }
         });
     });
+
+    let j = document.getElementById('main-area');
 });

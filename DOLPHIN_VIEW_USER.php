@@ -3,15 +3,15 @@
 session_start();
 require 'php\config.php';
 
-// if (!isset($_SESSION['user_id'])){
-// 	header('Location: DOLPHIN_LOGIN.php');
-// 	exit;
-// }
+if (!isset($_SESSION['user_id'])){
+	header('Location: DOLPHIN_LOGIN.php');
+	exit;
+}
 
-// if($_SESSION['role'] !== 'Admin') {
-// 	echo "<p class='error-message'>Access Denied. Only Admins can view this page.</p>";
-// 	exit;
-// }
+if($_SESSION['role'] !== 'Admin') {
+	echo "<p class='error-message'>Access Denied. Only Admins can view this page.</p>";
+	exit;
+}
 
 $sql = "SELECT firstname, lastname, email, role, created_at
 	FROM Users

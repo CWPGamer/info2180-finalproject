@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require 'config.php';
+require 'php\config.php';
 
 if (!isset($_SESSION['user_id'])){
 	header('Location: DOLPHIN_LOGIN.php');
@@ -39,7 +39,7 @@ if ($filter === 'assigned') {
 
 $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$fullname = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
+$fullname = $_SESSION['fullname'];
 $role = $_SESSION['role'];
 
 ?>
@@ -49,7 +49,7 @@ $role = $_SESSION['role'];
 <head>
 	<meta charset="utf-8">
 	<title>Dolphin CRM Dashboard</title>
-	<link href="styles.css" rel="stylesheet">
+	<link href="styles\styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -60,7 +60,8 @@ $role = $_SESSION['role'];
 		<ul>
 			<li><a href="dashboard.php">Home</a></li>
 			<li><a href="create_contact.php">New Contact</a></li>
-			<li><a href="DOLPHIN_VIEW_USER.php">Users</a></li>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<li><a href="DOLPHIN_VIEW_USER.php"> View Users</a></li>';} ?>
+			<?php if ($_SESSION['role'] === "Admin"){ echo '<li><a href="new_user.php"> Add User</a></li>';} ?>
 			<li><a href="logout.php">Logout</a></li>
 		</ul>
 
@@ -107,6 +108,9 @@ $role = $_SESSION['role'];
 			</tbody>
 		</table>
 	</main>
+    <footer>
+        Dolphin Customer Relationship Management &copy 2025
+    </footer>  	
 </div>
 
 </body>
