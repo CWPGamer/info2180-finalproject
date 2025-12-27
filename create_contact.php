@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'db.php';
+require 'php\config.php';
 
 function clean($v) {
   return htmlspecialchars(trim($v), ENT_QUOTES, 'UTF-8');
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $messageClass = "bad";
 
     // Phone number: must be exactly 10 digits
-    } elseif (!preg_match('/^[0-9]{10}$/', $telephone)) {
+    } elseif (!preg_match('/^\d{3}-\d{3}-\d{4}$/', $telephone)) {
       $message = "Telephone number must be exactly 10 digits.";
         $messageClass = "bad";
 

@@ -39,7 +39,6 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
 <aside class="sidebar">
-	<!-- <h2>Dolphin CRM</h2> -->
 	<div class="user_info">
 		<h3>Account Info</h3>
 		<?php echo htmlspecialchars($fullname); ?> 
@@ -57,7 +56,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <main>
 	<div class="page-header">
 		<h2>Users</h2>
-		<a href="#" class="btn btn-primary">Add Users +</a>
+		<!-- <a href="" class="btn btn-primary">Add Users +</a> -->
 	</div>
 
 	<table id="user_table">
