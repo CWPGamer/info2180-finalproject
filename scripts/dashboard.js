@@ -5,11 +5,12 @@ $(document).ready(function() {
         const filter = $(this).data('filter');
         $.ajax({
             url : 'dashboard.php',
-            data : {filter: filter},
+            data : {filter: filter, _: new Date().getTime()},
             type: 'GET',
             success: function (result) {
-                $("html").html(result);
+                // $("html").html(result);
                 $("body").html(result);
+                console.log(result);
             }
         });
     })
