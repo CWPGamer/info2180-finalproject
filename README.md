@@ -38,7 +38,8 @@
 
 ### Non-functional Requirements
 
-- [] Sanitize User Input w/ Regex
+- [x] Sanitize User Input w/ Regex
 - [x] Hash Passwords
-- [] No Page Refreshes by using AJAX
+- [x] No Page Refreshes by using AJAX
+
 
