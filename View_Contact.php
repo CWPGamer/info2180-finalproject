@@ -55,11 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  
-  if (isset($_POST['add_note'])) {
+
+  if (isset($_POST['comment'])) {
     $comment = trim($_POST['comment']);
     $contactId = trim($_POST['contact_id']);
-    echo $contactId;
 
     if ($comment === '') {
       $message = "Note cannot be empty.";
@@ -138,7 +137,7 @@ function displayUser($note) {
 </head>
 
 <body>
-<div class="layout">
+<div id="container" class="layout">
 	<header>
 		<img src="images\dolphin-8045833_640.png" alt="Dolphin Logo">
 		<h1>Dolphin CRM</h1>
@@ -176,7 +175,7 @@ function displayUser($note) {
       </div>
       <form method="post" class="actions">
         <button type="submit" name="assign">Assign to Me</button>
-        <button type="submit" name="switch"><?= ($contact['type'] === 'Sales Lead') ? 'Switch to Sales Lead' : 'Switch to Support'; ?></button>
+        <button type="submit" name="switch"><?= ($contact['type'] === 'Sales Lead') ? 'Switch to Support' : 'Switch to Sales Lead'; ?></button>
       </form>
     </div>
 
@@ -188,15 +187,13 @@ function displayUser($note) {
       <p style=""><strong>Email:</strong> <?= clean($contact['email']) ?></p> <p style=""><strong>Telephone:</strong> <?= clean($contact['telephone']) ?></p>
       <p style=""><strong>Company:</strong> <?= clean($contact['company']) ?></p> <p style=""><strong>Assigned To:</strong> <?= clean($user_assigned['firstname'] . ' ' . $user_assigned['lastname'])?></p>
     </div>
-    
-    <!-- <p><strong>Type:</strong> <?= clean($contact['type']) ?></p> -->
 
   
-    <div class="noteslist content" style="clear: both;">
+    <div id="notes-section" class="noteslist content" style="clear: both;">
       <h3>Notes</h3>
 
       <?php if (empty($notes)): ?>
-        <p>No notes available</p>
+        <p class="no-notes">No notes available</p>
       <?php else: ?>
         <?php foreach ($notes as $note): ?>
           <div class="note">
@@ -214,6 +211,7 @@ function displayUser($note) {
         <textarea placeholder="Type Here..." name="comment" required></textarea><br>
         <button type="submit" name="add_note">Add Note</button>
       </form>
+      <p id='message'></p>
     </div>
   </main>
   <footer>
