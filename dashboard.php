@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id'])){
 $filter = $_GET['filter'] ?? 'all';
 $userId = $_SESSION['user_id'];
 
+
 switch($filter) {
 	case 'sales':
 		$sql = "SELECT id, title, firstname, lastname, email, company, type
